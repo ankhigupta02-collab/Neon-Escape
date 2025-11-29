@@ -139,3 +139,152 @@ body {
             color: var(--neon-orange);
             text-shadow: 0 0 6px rgba(255,165,0,0.6);
 }
+#controls-section {
+            padding: 15px;
+            background-color: var(--path-color);
+            border-radius: 8px;
+            box-shadow: inset 0 0 5px rgba(0, 255, 255, 0.2);
+            text-align: center;
+}
+.control-grid {
+            display: grid;
+            grid-template-areas:
+                ". up ."
+                "left down right"; /* Changed from image to be more standard WASD/Arrows */
+            gap: 5px;
+            width: 150px;
+            margin: 15px auto 0;
+}
+.control-key {
+            font-family: 'Press Start 2P', cursive;
+            background-color: var(--primary-blue);
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid var(--neon-blue);
+            color: var(--neon-blue);
+            font-size: 0.7rem;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
+            transition: all 0.1s ease;
+            user-select: none; /* Prevent text selection */
+}
+.control-key:active, .control-key.active {
+            transform: translateY(1px);
+            box-shadow: 0 0 3px rgba(0, 255, 255, 0.5);
+            background-color: #008888; /* Darker on press */
+}
+
+#key-w { grid-area: up; }
+#key-a { grid-area: left; }
+#key-s { grid-area: down; }
+#key-d { grid-area: right; }
+
+.sidebar-button {
+            background-color: var(--neon-blue);
+            color: var(--bg-dark);
+            font-family: 'Press Start 2P', cursive;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            text-align: center;
+            text-shadow: none; /* Remove text shadow */
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
+            transition: all 0.2s ease;
+}
+.sidebar-button:hover {
+            background-color: var(--neon-green);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.7);
+}
+.sidebar-button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 8px rgba(0, 255, 0, 0.5);
+}
+#maze-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--primary-blue); 
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+            min-height: 300px;
+}
+
+#mazeCanvas {
+            background-color: var(--path-color); 
+            border-radius: 5px; 
+            display: block; 
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); 
+            touch-action: none; 
+            cursor: grab;
+}
+#message-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+}
+.modal-content {
+            background: linear-gradient(135deg, var(--primary-blue), #162447);
+            color: var(--text-light);
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(0, 255, 255, 0.8); /* Stronger neon glow */
+            border: 2px solid var(--neon-blue);
+            max-width: 90%;
+            width: 450px;
+            animation: fadeIn 0.3s ease-out;
+}
+.modal-content h3 {
+            font-family: 'Press Start 2P', cursive;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
+            color: var(--neon-green);
+            text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+}
+.modal-content p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+}
+.modal-content button {
+            background-color: var(--neon-orange);
+            color: var(--bg-dark);
+            font-family: 'Press Start 2P', cursive;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 0 15px rgba(255, 165, 0, 0.6);
+            margin: 5px;
+}
+.modal-content button:hover {
+            background-color: #FF7F00;
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.9);
+}
+.modal-content button:active {
+            transform: translateY(2px);
+            box-shadow: 0 0 8px rgba(255, 165, 0, 0.5);
+}
+#modal-cancel-button {
+            background-color: var(--primary-blue);
+            color: var(--text-light);
+            border: 1px solid var(--neon-blue);
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
+}
+#modal-cancel-button:hover {
+            background-color: #3A3A9A;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.6);
+}
+
+
