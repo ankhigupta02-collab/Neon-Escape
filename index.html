@@ -8,6 +8,43 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <div id="game-layout"></div>
+        <div id="sidebar">
+            <div id="game-title">SYSTEM<br>BREAKOUT</div>
+
+            <div id="level-display">
+                <div class="level-label">ACCESS PROTOCOL</div>
+                <div class="level-numbers">
+                    <span id="current-level">1</span> / <span>5</span>
+                </div>
+                <div class="progress-bar-container">
+                    <div id="progress-bar"></div>
+                </div>
+            </div>
+
+             <div id="stats-section">
+                <div class="stat-box">
+                    <div class="stat-label">TIME ELAPSED</div>
+                    <div class="stat-value" id="time-value">00:00</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-label">BEST ACCESS</div>
+                    <div class="stat-value" id="best-time-value">--:--</div>
+                </div>
+            </div>
+
+            <div id="controls-section">
+                <div class="section-title">NAVIGATION</div>
+                <div class="control-grid">
+                    <div id="key-w" class="control-key">W ▲</div>
+                    <div id="key-a" class="control-key">◄ A</div>
+                    <div id="key-s" class="control-key">S ▼</div>
+                    <div id="key-d" class="control-key">D ►</div>
+                </div>
+            </div>
+
+            <button id="restart-button" class="sidebar-button">RESTART PROTOCOL</button>
+            <button id="settings-button" class="sidebar-button">SYSTEM SETTINGS</button>
+        </div>
 </body>
 </html>
