@@ -400,7 +400,11 @@ function handleTouchEnd(e) {
     }
 }
 
-
+function handleControlClick(dr, dc, el) {
+    movePlayer(dr, dc);
+    el.classList.add("active");
+    setTimeout(() => el.classList.remove("active"), 120);
+}
 
     
 
