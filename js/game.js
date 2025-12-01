@@ -115,3 +115,95 @@ function updateLevelDisplay() {
 
 
 
+
+function findStart(maze) {
+    for (let r = 0; r < maze.length; r++) {
+        for (let c = 0; c < maze[r].length; c++) {
+            if (maze[r][c] === 2) return { row: r, col: c };
+        }
+    }
+    return null;
+}
+
+function drawPlayer() {
+    const x = player.col * cellSize + cellSize / 2;
+    const y = player.row * cellSize + cellSize / 2;
+    const color = getComputedStyle(document.documentElement).getPropertyValue('--neon-blue');
+
+    ctx.beginPath();
+    ctx.arc(x, y, player.size / 2, 0, Math.PI * 2);
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 15;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+}
+
+function drawMaze() {
+    const maze = MAZES[levelIndex];
+    const rows = maze.length;
+    const cols = maze[0].length;
+
+    const container = document.getElementById('maze-area');
+    let usable = Math.min(container.clientWidth, container.clientHeight);
+
+    if (window.innerWidth <= 768) usable = container.clientWidth - 20;
+
+    cellSize = Math.floor(usable / Math.max(rows, cols));
+    if (cellSize < 10) cellSize = 10;
+
+    canvas.width = cols * cellSize;
+    canvas.height = rows * cellSize;
+    player.size = cellSize * 0.7;
+
+    const pathColor = getComputedStyle(document.documentElement).getPropertyValue('--path-color');
+    const wallColor = getComputedStyle(document.documentElement).getPropertyValue('--wall-color');
+
+    ctx.fillStyle = pathColor;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const x = c * cellSize;
+            const y = r * cellSize;
+
+            const dx = c - player.col;
+            const dy = r - player.row;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            const visible = !fogOfWarEnabled || dist < VISIBILITY_RADIUS;
+
+            if (maze[r][c] === 1) {
+                ctx.fillStyle = wallColor;
+                ctx.fillRect(x, y, cellSize, cellSize);
+            } 
+            else if (maze[r][c] === 3) {
+                const goal = getComputedStyle(document.documentElement).getPropertyValue('--neon-orange');
+                const pad = cellSize * 0.2;
+
+                ctx.fillStyle = goal;
+                ctx.shadowColor = goal;
+                ctx.shadowBlur = visible ? 10 : 0;
+                ctx.fillRect(x + pad, y + pad, cellSize - pad * 2, cellSize - pad * 2);
+                ctx.shadowBlur = 0;
+            }
+
+            if (fogOfWarEnabled) {
+                let opacity = 0;
+
+                if (dist >= VISIBILITY_RADIUS) opacity = 0.98;
+                else if (dist >= VISIBILITY_RADIUS - 1) opacity = (dist - (VISIBILITY_RADIUS - 1));
+
+                if (opacity > 0) {
+                    ctx.fillStyle = rgba(10,10,42,${opacity});
+                    ctx.fillRect(x, y, cellSize, cellSize);
+                }
+            }
+        }
+    }
+
+    drawPlayer();
+}
+
+
+
+
