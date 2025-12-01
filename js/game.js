@@ -350,6 +350,29 @@ function handleSettingsClick(refresh = false) {
     if (!refresh) modal.style.display = "flex";
 }
 
+function handleKeydown(e) {
+    if (!gameActive || modal.style.display === "flex") return;
+
+    let dr = 0, dc = 0, key = null;
+
+    switch (e.key) {
+        case "w": case "W": case "ArrowUp": dr = -1; key = keyW; break;
+        case "s": case "S": case "ArrowDown": dr = 1; key = keyS; break;
+        case "a": case "A": case "ArrowLeft": dc = -1; key = keyA; break;
+        case "d": case "D": case "ArrowRight": dc = 1; key = keyD; break;
+        default: return;
+    }
+
+    e.preventDefault();
+    movePlayer(dr, dc);
+
+    if (key) {
+        key.classList.add("active");
+        setTimeout(() => key.classList.remove("active"), 100);
+    }
+}
+
+
 
 
 
