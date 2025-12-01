@@ -372,7 +372,37 @@ function handleKeydown(e) {
     }
 }
 
+function handleTouchStart(e) {
+    if (!gameActive) return;
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+    e.preventDefault();
+}
 
+function handleTouchEnd(e) {
+    if (!gameActive) return;
+
+    const x2 = e.changedTouches[0].clientX;
+    const y2 = e.changedTouches[0].clientY;
+
+    const dx = x2 - touchStartX;
+    const dy = y2 - touchStartY;
+
+    if (Math.abs(dx) > SWIPE_THRESHOLD || Math.abs(dy) > SWIPE_THRESHOLD) {
+        let dr = 0, dc = 0;
+       if (Math.abs(dx) > Math.abs(dy)) {
+            dc = dx > 0 ? 1 : -1;
+        } else {
+            dr = dy > 0 ? 1 : -1;
+        }
+
+        movePlayer(dr, dc);
+    }
+}
+
+
+
+    
 
 
 
