@@ -296,6 +296,64 @@ function restartCurrentLevel() {
 }
 
 
+function showConfirmationModal(title, text, confirm, cancel, onConfirm, onCancel) {
+    modalTitle.textContent = title;
+    modalText.textContent = text;
+    modalActions.innerHTML = "";
+
+    const cancelBtn = document.createElement("button");
+    cancelBtn.id = "modal-cancel-button";
+    cancelBtn.textContent = cancel;
+    cancelBtn.onclick = onCancel;
+    modalActions.appendChild(cancelBtn);
+
+    const confirmBtn = document.createElement("button");
+    confirmBtn.id = "modal-button";
+    confirmBtn.textContent = confirm;
+    confirmBtn.onclick = onConfirm;
+    modalActions.appendChild(confirmBtn);
+
+    modal.style.display = "flex";
+}
+function toggleFogOfWar() {
+    fogOfWarEnabled = !fogOfWarEnabled;
+    saveGameState();
+    drawMaze();
+    handleSettingsClick(true);
+}
+
+function handleSettingsClick(refresh = false) {
+    if (!refresh && gameActive) stopTimer();
+
+    modalTitle.textContent = "SYSTEM SETTINGS";
+    modalText.textContent = Fog of War is currently ${fogOfWarEnabled ? "ENABLED" : "DISABLED"}.;
+
+    modalActions.innerHTML = "";
+
+    const toggleBtn = document.createElement("button");
+    toggleBtn.id = "fow-toggle-button";
+    toggleBtn.textContent =
+        FOG OF WAR: ${fogOfWarEnabled ? "ENABLED (HARD)" : "DISABLED (EASY)"};
+    toggleBtn.className = fogOfWarEnabled ? "toggle-button toggle-on" : "toggle-button toggle-off";
+       toggleBtn.onclick = toggleFogOfWar;
+    modalActions.appendChild(toggleBtn);
+
+    const closeBtn = document.createElement("button");
+    closeBtn.id = "modal-close-button";
+    closeBtn.textContent = "CLOSE SETTINGS";
+    closeBtn.onclick = () => {
+        modal.style.display = "none";
+        if (gameActive) startTimer();
+    };
+    modalActions.appendChild(closeBtn);
+
+    if (!refresh) modal.style.display = "flex";
+}
+
+
+
+
+
 
 
 
