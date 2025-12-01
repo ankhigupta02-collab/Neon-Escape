@@ -205,6 +205,24 @@ function drawMaze() {
 }
 
 
+function movePlayer(dr, dc) {
+    if (!gameActive) return;
+
+    const maze = MAZES[levelIndex];
+    const nr = player.row + dr;
+    const nc = player.col + dc;
+
+    if (nr < 0 || nr >= maze.length || nc < 0 || nc >= maze[0].length) return;
+    if (maze[nr][nc] === 1) return;
+
+    player.row = nr;
+    player.col = nc;
+
+    drawMaze();
+
+    if (maze[nr][nc] === 3) levelComplete();
+}
+
 
 
 
