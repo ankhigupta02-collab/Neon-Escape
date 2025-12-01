@@ -224,6 +224,79 @@ function movePlayer(dr, dc) {
 }
 
 
+function initializeLevel(i) {
+    levelIndex = i % MAZES.length;
+
+    const start = findStart(MAZES[levelIndex]);
+    if (!start) return;
+
+    player.row = start.row;
+    player.col = start.col;
+
+    gameActive = true;
+
+    stopTimer();
+    startTimer();
+
+    updateLevelDisplay();
+    updateBestTimeDisplay();
+
+    drawMaze();
+    saveGameState();
+}
+function levelComplete() {
+    gameActive = false;
+    stopTimer();
+
+    const finalTime = (Date.now() - startTime) / 1000;
+    const timeText = formatTime(finalTime);
+
+    saveNewBestTime(levelIndex, finalTime);
+
+    modalTitle.textContent = (levelIndex + 1 < MAZES.length)
+        ? "PROTOCOL COMPLETE"
+        : "SYSTEM OFFLINE";
+
+    modalText.textContent = (levelIndex + 1 < MAZES.length)
+        ? Time: ${timeText}. Prepare for Protocol ${levelIndex + 2}.
+        : SUCCESS! You defeated all ${MAZES.length} protocols in ${timeText}!;
+
+    modalActions.innerHTML = "";
+
+    const btn = document.createElement("button");
+    btn.textContent = (levelIndex + 1 < MAZES.length)
+        ? "NEXT PROTOCOL"
+        : "RESTART SYSTEM";
+ btn.onclick = () => {
+        modal.style.display = "none";
+        initializeLevel(levelIndex + 1);
+    };
+
+    modalActions.appendChild(btn);
+    modal.style.display = "flex";
+}
+
+function restartCurrentLevel() {
+    stopTimer();
+
+    showConfirmationModal(
+        "RESTART PROTOCOL?",
+        Restart Protocol ${levelIndex + 1}? Current time will be lost.,
+        "CONFIRM RESTART",
+        "CANCEL",
+        () => {
+            modal.style.display = "none";
+            initializeLevel(levelIndex);
+        },
+        () => {
+            modal.style.display = "none";
+        if (gameActive) startTimer();
+        }
+    );
+}
+
+
+
 
 
 
