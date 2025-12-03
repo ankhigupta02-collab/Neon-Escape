@@ -77,7 +77,7 @@ async function loadBestTimes() {
 
         return new Promise((resolve) => {
             req.onsuccess = () => {
-                req.result.forEach(item => bestTimes[item.levelIndex] = item.bestTime);
+                req.result.forEach(item => bestTimes[item.levelIndex] = item.bestTime); 
                 resolve();
             };
         });
