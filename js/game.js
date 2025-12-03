@@ -79,7 +79,8 @@ function formatTime(seconds) {
     if (!seconds && seconds !== 0) return "--:--";
     const m = Math.floor(seconds / 60);
     const s = Math.floor(seconds % 60);
-    return ${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")};
+    return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+
 }
 
 function updateTimer() {
@@ -110,11 +111,8 @@ function updateBestTimeDisplay() {
 function updateLevelDisplay() {
     currentLevelElement.textContent = levelIndex + 1;
     const progress = ((levelIndex + 1) / MAZES.length) * 100;
-    progressBar.style.width = ${progress}%;
+   progressBar.style.width = `${progress}%`;
 }
-
-
-
 
 function findStart(maze) {
     for (let r = 0; r < maze.length; r++) {
@@ -138,7 +136,7 @@ function drawPlayer() {
     ctx.fill();
     ctx.shadowBlur = 0;
 }
-
+ 
 function drawMaze() {
     const maze = MAZES[levelIndex];
     const rows = maze.length;
@@ -191,12 +189,12 @@ function drawMaze() {
                 let opacity = 0;
 
                 if (dist >= VISIBILITY_RADIUS) opacity = 0.98;
-                else if (dist >= VISIBILITY_RADIUS - 1) opacity = (dist - (VISIBILITY_RADIUS - 1));
-
+                else if (dist >= VISIBILITY_RADIUS - 1) opacity = 1 - (VISIBILITY_RADIUS - dist);
                 if (opacity > 0) {
-                    ctx.fillStyle = rgba(10,10,42,${opacity});
+                    ctx.fillStyle = `rgba(10,10,42,${opacity})`;
                     ctx.fillRect(x, y, cellSize, cellSize);
                 }
+
             }
         }
     }
@@ -258,8 +256,8 @@ function levelComplete() {
         : "SYSTEM OFFLINE";
 
     modalText.textContent = (levelIndex + 1 < MAZES.length)
-        ? Time: ${timeText}. Prepare for Protocol ${levelIndex + 2}.
-        : SUCCESS! You defeated all ${MAZES.length} protocols in ${timeText}!;
+    ? `Time: ${timeText}. Prepare for Protocol ${levelIndex + 2}.`
+    : `SUCCESS! You defeated all ${MAZES.length} protocols in ${timeText}!`;
 
     modalActions.innerHTML = "";
 
@@ -267,10 +265,15 @@ function levelComplete() {
     btn.textContent = (levelIndex + 1 < MAZES.length)
         ? "NEXT PROTOCOL"
         : "RESTART SYSTEM";
- btn.onclick = () => {
-        modal.style.display = "none";
-        initializeLevel(levelIndex + 1);
-    };
+ //btn.onclick = () => {
+   //     modal.style.display = "none";
+     //   initializeLevel(levelIndex + 1);
+   // };
+   btn.onclick = () => {
+    modal.style.display = "none";
+    initializeLevel((levelIndex + 1) % MAZES.length);
+};
+
 
     modalActions.appendChild(btn);
     modal.style.display = "flex";
@@ -279,11 +282,13 @@ function levelComplete() {
 function restartCurrentLevel() {
     stopTimer();
 
-    showConfirmationModal(
-        "RESTART PROTOCOL?",
-        Restart Protocol ${levelIndex + 1}? Current time will be lost.,
-        "CONFIRM RESTART",
-        "CANCEL",
+   showConfirmationModal(
+    "RESTART PROTOCOL?",
+    `Restart Protocol ${levelIndex + 1}? Current time will be lost.`,
+    `CONFIRM RESTART`,
+    `CANCEL`,
+
+
         () => {
             modal.style.display = "none";
             initializeLevel(levelIndex);
@@ -326,14 +331,15 @@ function handleSettingsClick(refresh = false) {
     if (!refresh && gameActive) stopTimer();
 
     modalTitle.textContent = "SYSTEM SETTINGS";
-    modalText.textContent = Fog of War is currently ${fogOfWarEnabled ? "ENABLED" : "DISABLED"}.;
+    modalText.textContent = `Fog of War is currently ${fogOfWarEnabled ? "ENABLED" : "DISABLED"}.`;
 
     modalActions.innerHTML = "";
 
     const toggleBtn = document.createElement("button");
     toggleBtn.id = "fow-toggle-button";
     toggleBtn.textContent =
-        FOG OF WAR: ${fogOfWarEnabled ? "ENABLED (HARD)" : "DISABLED (EASY)"};
+   `FOG OF WAR: ${fogOfWarEnabled ? "ENABLED (HARD)" : "DISABLED (EASY)"}`
+
     toggleBtn.className = fogOfWarEnabled ? "toggle-button toggle-on" : "toggle-button toggle-off";
        toggleBtn.onclick = toggleFogOfWar;
     modalActions.appendChild(toggleBtn);
@@ -373,10 +379,15 @@ function handleKeydown(e) {
 }
 
 function handleTouchStart(e) {
-    if (!gameActive) return;
+    //if (!gameActive) return;
+    //touchStartX = e.touches[0].clientX;
+    //touchStartY = e.touches[0].clientY;
+    //e.preventDefault();
     touchStartX = e.touches[0].clientX;
     touchStartY = e.touches[0].clientY;
-    e.preventDefault();
+
+    if (gameActive) e.preventDefault();
+
 }
 
 function handleTouchEnd(e) {

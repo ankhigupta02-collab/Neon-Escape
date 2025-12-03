@@ -35,7 +35,11 @@ async function saveGameState() {
         const data = { id: 1, levelIndex, fogOfWarEnabled };
         store.put(data);
 
-        return tx.complete;
+        //return tx.complete;
+        return new Promise(resolve => {
+        tx.oncomplete = resolve;
+});
+
     } catch (err) {
         console.error("Failed to save game state:", err);
     }
@@ -94,6 +98,10 @@ async function saveNewBestTime(levelIndex, newTime) {
             levelIndex, bestTime: newTime
         });
 
-        return tx.complete;
+        //return tx.complete;
+        return new Promise(resolve => {
+        tx.oncomplete = resolve;
+    });
+
     }
 }
