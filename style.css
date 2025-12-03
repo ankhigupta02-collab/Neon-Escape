@@ -9,7 +9,7 @@
             --path-color: #0F0F3F; /* more darker blue for maze paths */
 }
 body {
-            font-family: 'Orbitron', sans-serif;
+            font-family:  sans-serif;
             background-color: var(--bg-dark);
             color: var(--text-light);
             margin: 0;
@@ -41,14 +41,14 @@ body {
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
 }
 .section-title {
-            font-family: 'Press Start 2P', cursive;
+            font-family: cursive;
             font-size: 1rem;
             color: var(--neon-blue);
             margin-bottom: 10px;
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.8);
 }
 #game-title {
-            font-family: 'Press Start 2P', cursive;
+            font-family:  cursive;
             font-size: 1.8rem;
             color: var(--neon-blue);
             text-shadow: 0 0 10px rgba(0, 255, 255, 0.8);
@@ -105,7 +105,7 @@ body {
 }
 #progress-bar {
             height: 100%;
-            width: 20%; /* Example width */
+            width: 20%; /*default width*/
             background-color: var(--neon-blue);
             border-radius: 4px;
             transition: width 0.3s ease-out;
@@ -130,7 +130,7 @@ body {
             margin-bottom: 5px;
 }
 .stat-value {
-            font-family: 'Press Start 2P', cursive;
+            font-family:  cursive;
             font-size: 1.1rem;
             color: var(--neon-green);
             text-shadow: 0 0 6px rgba(0,255,0,0.6);
@@ -156,7 +156,7 @@ body {
             margin: 15px auto 0;
 }
 .control-key {
-            font-family: 'Press Start 2P', cursive;
+            font-family:  cursive;
             background-color: var(--primary-blue);
             padding: 8px;
             border-radius: 5px;
@@ -166,7 +166,7 @@ body {
             cursor: pointer;
             box-shadow: 0 0 8px rgba(0, 255, 255, 0.3);
             transition: all 0.1s ease;
-            user-select: none; /* Prevent text selection */
+            user-select: none; /* Preventing text selection */
 }
 .control-key:active, .control-key.active {
             transform: translateY(1px);
@@ -189,7 +189,7 @@ body {
             cursor: pointer;
             font-size: 0.8rem;
             text-align: center;
-            text-shadow: none; /* Remove text shadow */
+            text-shadow: none; /* Removing text shadow */
             box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
             transition: all 0.2s ease;
 }
@@ -246,7 +246,7 @@ body {
             animation: fadeIn 0.3s ease-out;
 }
 .modal-content h3 {
-            font-family: 'Press Start 2P', cursive;
+            font-family:  cursive;
             font-size: 1.6rem;
             margin-bottom: 1.5rem;
             color: var(--neon-green);
@@ -260,7 +260,7 @@ body {
 .modal-content button {
             background-color: var(--neon-orange);
             color: var(--bg-dark);
-            font-family: 'Press Start 2P', cursive;
+            font-family:  cursive;
             padding: 12px 25px;
             border: none;
             border-radius: 8px;
@@ -289,7 +289,7 @@ body {
 }
 
 .toggle-button {
-            /* Inherits most styles from modal button */
+            /* Inheriting most styles from modal button */
             width: 100%;
             margin: 10px 0 !important;
 }
